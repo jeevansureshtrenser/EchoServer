@@ -89,7 +89,7 @@ int InitializeServer(void)
         printf("Server initialized with IP: %s, PORT: %d\n", config->ip, config->port);
     }
     
-    printf("Waiting for connections on port %d...\n", PORT);
+    printf("Waiting for connections on port %d...\n", config->port);
     // Accept a connection
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
         perror("accept");

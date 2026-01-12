@@ -14,10 +14,10 @@
 
 /******************************Macro Definitions******************************/
 // Configuration header for Echo Server and Client
-#define PORT 3000
-#define SERVER_IP "127.0.0.1"
-#define SUCCESS 0
-
+#define PORT                3000
+#define SERVER_IP           "127.0.0.1"
+#define SUCCESS             0
+#define MESSAGE_MAX_LENGTH  1024
 /******************************Global Variable declaration******************************/
 typedef struct {
     char* ip;
@@ -30,6 +30,6 @@ static const CLIENT_CONFIG default_config = {
 };
 
 /******************************Function declaration******************************/
-extern ServerConfig* get_server_config();
+extern CLIENT_CONFIG* get_server_config();
 
 #endif // __CONFIG_H__

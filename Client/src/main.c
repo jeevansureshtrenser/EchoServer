@@ -9,9 +9,10 @@
 int main() 
 {
     int sock = 0;
-    char* buffer = (char*)malloc(1024 * sizeof(char));
-    int sock = initializeClient();
-    if (sock < 0) {
+    char* buffer = (char*)malloc(MESSAGE_MAX_LENGTH);
+    sock = InitializeClient();
+    if (sock < 0) 
+    {
         perror("Failed to initialize client");
         exit(EXIT_FAILURE);
     }   
@@ -23,14 +24,14 @@ int main()
     // Send message
     while (1)
     {
-        memset(buffer, 0, sizeof(buffer));
-        if (fgets(buffer, sizeof(buffer), stdin) != NULL) 
+        memset(buffer, 0, MESSAGE_MAX_LENGTH);
+        if (fgets(buffer, MESSAGE_MAX_LENGTH, stdin) != NULL) 
         { 
-            if(SendToServer(sock, buffer, strlen(buffer)) == 0)
+            if(SendToServer(sock, buffer, MESSAGE_MAX_LENGTH) == 0)
             {
                 // Read echo message
-                memset(buffer, 0, sizeof(buffer));
-                if(ReadFromServer(sock, buffer, sizeof(buffer)) == 0)
+                memset(buffer, 0, MESSAGE_MAX_LENGTH);
+                if(ReadFromServer(sock, buffer, MESSAGE_MAX_LENGTH) == 0)
                 {
                     printf("Echo from server: %s", buffer);
                 }

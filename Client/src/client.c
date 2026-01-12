@@ -19,7 +19,7 @@
 
 int InitializeClient(void);
 int ReadFromServer(int socket, char* buffer, size_t read_bytes);
-int SendToServer(int socket, const char* message);
+int SendToServer(int socket, const char* message, size_t message_length);
 int CleanupClient(int socket);
 
 //******************************* Function Definition ******************************* //
@@ -32,9 +32,8 @@ int CleanupClient(int socket);
 *************************************************************************/
 int InitializeClient(void)
 {
-    int server_fd, new_socket;
+    int server_fd = 0;
     struct sockaddr_in address;
-    int addrlen = sizeof(address);
     CLIENT_CONFIG* config = get_server_config();
     if(config == NULL) {
         perror("Failed to get server configuration");
@@ -102,8 +101,7 @@ int ReadFromServer(int socket, char* buffer, size_t read_bytes)
     }
     else
     {
-        buffer[n] = '\0';
-        printf("Message from client: %s\n", buffer);
+        buffer[n] = '\0'; // null-terminate the string
     }
     return 0; // success
 }
@@ -115,14 +113,14 @@ int ReadFromServer(int socket, char* buffer, size_t read_bytes)
 *                   : const char* message - message to send
 * Return type       : int - 0 on success, -1 on error
 *************************************************************************/
-int SendToServer(int socket, const char* message)
+int SendToServer(int socket, const char* message, size_t message_length)
 {
-    if(send(socket, message, strlen(message), 0) < 0) {
+    if(send(socket, message, message_length, 0) < 0) {
         return -1; // error
     }
     else
     {
-        printf("Echo message sent\n");
+        /* No-op */
     }
     return 0; // success
 }
